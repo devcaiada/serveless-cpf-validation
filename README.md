@@ -2,29 +2,29 @@
 
 ## 1. Criando o Recurso Azure Function App
 
-![serverless]()
+![serverless](https://github.com/devcaiada/serveless-cpf-validation/blob/main/assets/serverless.png?raw=true)
 
 ### Passo 1: Criar um Novo Recurso no Azure
 
-1. Acesse o portal do [**Azure**](https://portal.azure.com/): 
+1. Acesse o portal do [**Azure**](https://portal.azure.com/):
 
 2. No menu lateral esquerdo, clique em “**Create a resource**” e procure por “**Function App**”.
 
 3. Clique em “**Create**” e preencha os seguintes detalhes:
 
-    - **Subscription**: Selecione sua assinatura do Azure.
+   - **Subscription**: Selecione sua assinatura do Azure.
 
-    - **Resource Group**: Crie um novo grupo de recursos ou selecione um existente.
+   - **Resource Group**: Crie um novo grupo de recursos ou selecione um existente.
 
-    - **Function App name**: Escolha um nome único para sua Function App.
+   - **Function App name**: Escolha um nome único para sua Function App.
 
-    - **Publish**: Selecione “Code”.
+   - **Publish**: Selecione “Code”.
 
-    - **Runtime stack**: Selecione “Python”.
+   - **Runtime stack**: Selecione “Python”.
 
-    - **Version**: Selecione a versão do Python que deseja utilizar (por exemplo, 3.9).
+   - **Version**: Selecione a versão do Python que deseja utilizar (por exemplo, 3.9).
 
-    - **Region**: Selecione a região mais próxima de você.
+   - **Region**: Selecione a região mais próxima de você.
 
 4. Clique em “Next: Hosting” e configure o armazenamento:
 
@@ -46,11 +46,11 @@
 
 Abra o terminal e execute os seguintes comandos:
 
-~~~Sh
+```Sh
 func init serveless-cpf-validation --python
 cd serveless-cpf-validation
 func new --name ValidateCPF --template "HTTP trigger" --authlevel "function"
-~~~
+```
 
 ## 3. Código da Função para Validação de CPF
 
@@ -58,7 +58,7 @@ func new --name ValidateCPF --template "HTTP trigger" --authlevel "function"
 
 No arquivo `ValidateCPF/__init__.py`, adicione o seguinte código:
 
-~~~python
+```python
 import logging
 import azure.functions as func
 import re
@@ -66,7 +66,7 @@ import re
 def validar_cpf(cpf: str) -> bool:
     # Remove caracteres não numéricos
     cpf = re.sub(r'\D', '', cpf)
-    
+
     # Verifica se tem 11 dígitos
     if len(cpf) != 11:
         return False
@@ -111,7 +111,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
              "Por favor, passe o CPF na query string ou no corpo da requisição.",
              status_code=400
         )
-~~~
+```
 
 ## 4. Configurando o Arquivo `function.json`
 
@@ -119,7 +119,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
 No arquivo `ValidateCPF/function.json`, adicione o seguinte conteúdo:
 
-~~~json
+```json
 {
   "scriptFile": "__init__.py",
   "bindings": [
@@ -137,7 +137,7 @@ No arquivo `ValidateCPF/function.json`, adicione o seguinte conteúdo:
     }
   ]
 }
-~~~
+```
 
 ## 5. Publicando o Projeto no Azure
 
@@ -145,14 +145,12 @@ No arquivo `ValidateCPF/function.json`, adicione o seguinte conteúdo:
 
 Execute os seguintes comandos no terminal para fazer o deploy do projeto:
 
-~~~sh
+```sh
 az login
 az account set --subscription "<seu-id-de-assinatura>"
 func azure functionapp publish <nome-da-sua-function-app>
-~~~
+```
 
 ## Contribuição <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="25" height="25" />
 
 Sinta-se à vontade para contribuir com melhorias neste projeto. Envie um pull request ou abra uma issue para discussão.
-
-
