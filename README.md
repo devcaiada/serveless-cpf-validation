@@ -2,7 +2,7 @@
 
 ## 1. Criando o Recurso Azure Function App
 
-![serverless](https://github.com/devcaiada/serveless-cpf-validation/blob/main/assets/serverless.png?raw=true)
+<div align="center"> <img src="https://github.com/devcaiada/serveless-cpf-validation/blob/main/assets/serverless.png?raw=true" alt="Descrição da Imagem"> </div>
 
 ### Passo 1: Criar um Novo Recurso no Azure
 
